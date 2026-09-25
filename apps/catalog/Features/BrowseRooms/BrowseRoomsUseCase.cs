@@ -15,13 +15,13 @@ public sealed record RoomDto(
     string City,
     decimal Price);
 
-public sealed class BrowseRoomsUseCase
+public sealed class BrowseRoomsUseCase(IRoomsReadModel rooms)
 {
-    public Task<BrowseRoomsResponse> ExecuteAsync(
+    public async Task<BrowseRoomsResponse> ExecuteAsync(
         BrowseRoomsRequest request,
         CancellationToken cancellationToken = default)
     {
-        IReadOnlyList<RoomDto> results = [];
-        return Task.FromResult(new BrowseRoomsResponse(new RoomsResult(results, results.Count)));
+        var results = await rooms.ReadAllAsync(cancellationToken);
+        return new BrowseRoomsResponse(new RoomsResult(results, results.Count));
     }
 }
