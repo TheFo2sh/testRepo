@@ -1,0 +1,12 @@
+{
+  "name": "testrepo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {},
+  "devDependencies": {
+    "@local/usecase-pattern": "file:../.fidelio/patterns/5706b40a-9fbf-407c-b219-737303daf59f/usecase-pattern",
+    "@nx/devkit": "23.1.1",
+    "@nx/dotnet": "23.1.1",
+    "nx": "23.1.1"
+  }
+}
