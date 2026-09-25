@@ -1,0 +1,21 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "catalog-frontend",
+  "projectType": "application",
+  "sourceRoot": "apps/catalog-frontend/src",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": { "command": "vite", "cwd": "apps/catalog-frontend" }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/dist/apps/catalog-frontend"],
+      "options": { "command": "tsc -p tsconfig.json && vite build", "cwd": "apps/catalog-frontend" }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": { "command": "vitest run", "cwd": "apps/catalog-frontend" }
+    }
+  }
+}
