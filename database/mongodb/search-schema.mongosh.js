@@ -33,7 +33,7 @@ const collections = {
         },
       },
     },
-    indexes: [{ key: { hotel_id: 1 }, name: "hotels_hotel_id_unique", unique: true }],
+    indexes: [{ key: { hotel_id: 1 }, name: "ux_hotels_hotel_id", unique: true }],
   },
   rooms: {
     validator: {
@@ -66,8 +66,8 @@ const collections = {
       },
     },
     indexes: [
-      { key: { room_id: 1 }, name: "rooms_room_id_unique", unique: true },
-      { key: { hotel_id: 1 }, name: "rooms_hotel_id" },
+      { key: { room_id: 1 }, name: "ux_rooms_room_id", unique: true },
+      { key: { hotel_id: 1 }, name: "ix_rooms_hotel_id" },
     ],
   },
 };
@@ -92,8 +92,16 @@ for (const [name, spec] of Object.entries(collections)) {
     print(`Created collection ${name}`);
   }
 
+  const collection = db.getCollection(name);
   for (const { key, ...indexOptions } of spec.indexes) {
-    db.getCollection(name).createIndex(key, indexOptions);
+    // Drop an index on the same key under a different name so reruns converge on the expected names.
+    for (const index of collection.getIndexes()) {
+      if (index.name !== indexOptions.name && JSON.stringify(index.key) === JSON.stringify(key)) {
+        collection.dropIndex(index.name);
+        print(`Dropped index ${index.name} on ${name}`);
+      }
+    }
+    collection.createIndex(key, indexOptions);
     print(`Ensured index ${indexOptions.name} on ${name}`);
   }
 }
