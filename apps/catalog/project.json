@@ -1,0 +1,15 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "catalog",
+  "projectType": "application",
+  "sourceRoot": "apps/catalog",
+  "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "dotnet test apps/catalog-tests/Catalog.Tests.csproj"
+      }
+    }
+  }
+}
