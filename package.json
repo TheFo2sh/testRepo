@@ -7,6 +7,15 @@
     "@local/usecase-pattern": "file:../.fidelio/patterns/5706b40a-9fbf-407c-b219-737303daf59f/usecase-pattern",
     "@nx/devkit": "23.1.1",
     "@nx/dotnet": "23.1.1",
-    "nx": "23.1.1"
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "nx": "23.1.1",
+    "typescript": "7.0.2",
+    "vitest": "5.0.2"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zustand": "5.0.15"
   }
 }

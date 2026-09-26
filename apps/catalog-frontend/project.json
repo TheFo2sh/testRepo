@@ -1,0 +1,22 @@
+{
+  "name": "catalog-frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/catalog-frontend/src",
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/catalog-frontend",
+        "command": "tsc --noEmit -p tsconfig.json"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/catalog-frontend",
+        "command": "vitest run"
+      }
+    }
+  }
+}
