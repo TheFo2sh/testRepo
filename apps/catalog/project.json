@@ -4,9 +4,17 @@
   "projectType": "application",
   "sourceRoot": "apps/catalog",
   "targets": {
+    "build": {
+      "dependsOn": [
+        "restore",
+        "^build"
+      ]
+    },
     "test": {
       "executor": "nx:run-commands",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
         "command": "dotnet test apps/catalog-tests/Catalog.Tests.csproj"
       }

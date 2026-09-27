@@ -1,0 +1,12 @@
+{
+  "id": "cs-01a0e268-ca2c-7c14-b872-78cbc4647b95",
+  "baseVersion": 2,
+  "createdAt": "2026-09-27T10:37:57.974Z",
+  "operations": [],
+  "unreported": [
+    "Nx project catalog-e2e added in apps/catalog-e2e without a reported change",
+    "Nx project catalog added in apps/catalog-tests/bin/Debug/net8.0 without a reported change",
+    "Nx project catalog added in apps/catalog/bin/Debug/net8.0 without a reported change"
+  ],
+  "file": ".okeno/changesets/2026-09-27T10-37-57_01a0e268-ca2c-7c14-b872-78cbc4647b95.json"
+}

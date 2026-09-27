@@ -27,7 +27,8 @@ export function formatDateTime(value: string) {
   return Number.isNaN(date.getTime()) ? value : dateTimeFormat.format(date);
 }
 
-function RoomCard({ room }: { room: Room }) {
+/** One room's contract fields; `description` is shown when the response supplies it (SearchRooms). */
+export function RoomCard({ room }: { room: Room & { description?: string } }) {
   const headingId = `room-${room.roomId}-heading`;
   return (
     <Card component="article" aria-labelledby={headingId} variant="outlined" sx={{ height: '100%' }}>
@@ -50,6 +51,12 @@ function RoomCard({ room }: { room: Room }) {
             {' – '}
             <time dateTime={room.availableTo}>{formatDateTime(room.availableTo)}</time>
           </Typography>
+          {room.description && (
+            <>
+              <Typography component="dt" color="text.secondary">Description</Typography>
+              <Typography component="dd" sx={{ m: 0 }}>{room.description}</Typography>
+            </>
+          )}
         </Box>
       </CardContent>
     </Card>

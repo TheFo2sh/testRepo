@@ -1,4 +1,4 @@
-// Migration for the logical MainDatabase › search model (see search.mmd).
+// Migration for the logical MainDatabase › search model (see search-schema.mmd).
 // Realizes the `hotels` and `rooms` entities as collections in the `testdb` database.
 // Idempotent: creates missing collections, reconfigures existing ones with collMod,
 // and creates named indexes so reruns converge.
@@ -60,6 +60,11 @@ const collections = {
           available_to: { bsonType: "date" },
           city: { bsonType: "string" },
           price: { bsonType: "decimal" },
+          description: {
+            bsonType: "string",
+            minLength: 1,
+            description: "Owner-approved searchable text; rooms without it are not text-searchable",
+          },
           created_at: { bsonType: "date" },
           updated_at: { bsonType: "date" },
         },
