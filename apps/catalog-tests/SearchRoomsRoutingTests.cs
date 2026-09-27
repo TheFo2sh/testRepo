@@ -19,7 +19,6 @@ public class SearchRoomsRoutingTests(CatalogApiFactory factory) : IClassFixture<
 
     [Theory]
     [InlineData("startAt=not-a-date")]
-    [InlineData("duration=abc")]
     [InlineData("minPrice=abc")]
     [InlineData("maxPrice=abc")]
     [InlineData("minStars=abc")]

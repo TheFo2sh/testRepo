@@ -9,6 +9,7 @@ builder.Services.AddFastEndpoints();
 builder.Services.AddMainDatabase();
 builder.Services.AddScoped<IRoomsReadModel, MongoRoomsReadModel>();
 builder.Services.AddScoped<BrowseRoomsUseCase>();
+builder.Services.AddScoped<IRoomSearchReadModel, MongoRoomSearchReadModel>();
 builder.Services.AddScoped<SearchRoomsUseCase>();
 
 var app = builder.Build();
