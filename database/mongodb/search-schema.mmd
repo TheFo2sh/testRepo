@@ -1,0 +1,21 @@
+erDiagram
+    hotels ||--o{ rooms : contains
+    hotels {
+        string hotel_id PK
+        string city
+        int stars
+        timestamp created_at
+        timestamp updated_at
+    }
+    rooms {
+        string room_id PK
+        string hotel_id FK
+        int number_of_beds
+        timestamp available_from
+        timestamp available_to
+        string city
+        decimal price
+        string description
+        timestamp created_at
+        timestamp updated_at
+    }
