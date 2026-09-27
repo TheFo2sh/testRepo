@@ -1,0 +1,16 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "catalog-e2e",
+  "projectType": "application",
+  "sourceRoot": "apps/catalog-e2e/src",
+  "implicitDependencies": ["catalog", "catalog-frontend"],
+  "targets": {
+    "e2e": {
+      "executor": "nx:run-commands",
+      "dependsOn": [{ "target": "build", "projects": ["catalog"] }],
+      "options": {
+        "command": "playwright test -c apps/catalog-e2e/playwright.config.ts"
+      }
+    }
+  }
+}

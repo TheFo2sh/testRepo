@@ -11,3 +11,7 @@ TestResults/
 **/bin/
 **/obj/
 /artifacts/
+
+# Playwright
+test-results/
+playwright-report/

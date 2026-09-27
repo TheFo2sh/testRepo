@@ -61,7 +61,7 @@ describe('SearchRooms state', () => {
     expect(selectIsSearchLoading(store.getState())).toBe(true);
     await vi.waitFor(() => expect(store.getState().status).toBe('success'));
 
-    expect(requestedUrl(fetchImpl)).toBe('/rooms/search?text=sea+view');
+    expect(requestedUrl(fetchImpl)).toBe('/rooms/search?text=sea%20view');
     const state = store.getState();
     expect(new URL(requestedUrl(fetchImpl), 'http://x').searchParams.get('text')).toBe('sea view');
     expect(selectSearchResults(state)).toEqual(seaView.results);

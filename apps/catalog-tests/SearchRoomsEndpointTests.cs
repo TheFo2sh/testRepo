@@ -144,6 +144,33 @@ public class SearchRoomsEndpointTests(CatalogApiFactory factory) : IClassFixture
     }
 
     [Fact]
+    public async Task All_seven_filters_are_accepted_together()
+    {
+        const string query =
+            "text=sea%20view&startAt=2026-11-05T00:00:00Z&duration=P7D&city=berlin&minPrice=90&maxPrice=120&minStars=4";
+
+        var rooms = await SearchAsync(query);
+
+        Assert.Equal(["room-3"], RoomIds(rooms));
+        Assert.Equal(1, rooms.GetProperty("total").GetInt32());
+        var echo = rooms.GetProperty("query");
+        Assert.Equal(
+            ["text", "startAt", "duration", "city", "minPrice", "maxPrice", "minStars"],
+            echo.EnumerateObject().Select(p => p.Name).ToArray());
+
+        // Tightening any one of the seven excludes the room, so each is applied in the combination.
+        foreach (var (name, value) in new[]
+                 {
+                     ("text", "garden%20view"), ("startAt", "2026-10-20T00:00:00Z"), ("duration", "P30D"),
+                     ("city", "Cairo"), ("minPrice", "110"), ("maxPrice", "95"), ("minStars", "5"),
+                 })
+        {
+            var tightened = System.Text.RegularExpressions.Regex.Replace(query, $"{name}=[^&]*", $"{name}={value}");
+            Assert.Equal(0, (await SearchAsync(tightened)).GetProperty("total").GetInt32());
+        }
+    }
+
+    [Fact]
     public async Task No_criteria_returns_every_room_ordered_by_room_id_with_empty_text_echo()
     {
         var rooms = await SearchAsync("");

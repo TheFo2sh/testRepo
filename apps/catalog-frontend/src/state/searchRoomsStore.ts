@@ -59,7 +59,8 @@ export function serializeSearchCriteria(criteria: SearchRoomsCriteria): URLSearc
 /** Catalog `GET /rooms/search` client over the relative route, so the Frontend→Catalog routing supplies the host. */
 export function createSearchRoomsClient(fetchImpl: typeof fetch = (...args) => fetch(...args)): SearchRoomsClient {
   return async (params, signal) => {
-    const query = params.toString();
+    // URLSearchParams encodes spaces as '+'; send RFC 3986 '%20' (a literal '+' is already '%2B').
+    const query = params.toString().replace(/\+/g, '%20');
     const response = await fetchImpl(query ? `/rooms/search?${query}` : '/rooms/search', {
       headers: { Accept: 'application/json' },
       signal,

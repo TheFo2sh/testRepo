@@ -7,6 +7,7 @@
     "@local/usecase-pattern": "file:../.fidelio/patterns/5706b40a-9fbf-407c-b219-737303daf59f/usecase-pattern",
     "@nx/devkit": "23.1.1",
     "@nx/dotnet": "23.1.1",
+    "@playwright/test": "1.58",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
     "@types/react": "19.3.0",
