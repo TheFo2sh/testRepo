@@ -1,0 +1,23 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "backoffice",
+  "projectType": "application",
+  "sourceRoot": "apps/backoffice",
+  "targets": {
+    "build": {
+      "dependsOn": [
+        "restore",
+        "^build"
+      ]
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "command": "dotnet test apps/backoffice-tests/Backoffice.Tests.csproj"
+      }
+    }
+  }
+}
