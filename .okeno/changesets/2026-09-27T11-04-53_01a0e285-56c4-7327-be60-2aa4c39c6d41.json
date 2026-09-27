@@ -1,0 +1,16 @@
+{
+  "id": "cs-01a0e285-56c4-7327-be60-2aa4c39c6d41",
+  "baseVersion": 3,
+  "createdAt": "2026-09-27T11:04:53.029Z",
+  "operations": [
+    {
+      "kind": "addRelationship",
+      "sourceId": "b5204fa0-d547-419b-b30d-a0e1ff845a8b",
+      "targetId": "49c4977f-6408-45e6-aec7-87e5946e40c1",
+      "label": "calls the ViewRoom API (GET /rooms/{roomId})",
+      "status": "unverifiable",
+      "evidence": "Reported by the assistant; the code can't show this kind of change"
+    }
+  ],
+  "file": ".okeno/changesets/2026-09-27T11-04-53_01a0e285-56c4-7327-be60-2aa4c39c6d41.json"
+}
