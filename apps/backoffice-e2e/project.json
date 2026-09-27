@@ -1,0 +1,16 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "backoffice-e2e",
+  "projectType": "application",
+  "sourceRoot": "apps/backoffice-e2e/src",
+  "implicitDependencies": ["backoffice", "backoffice-ui"],
+  "targets": {
+    "e2e": {
+      "executor": "nx:run-commands",
+      "dependsOn": [{ "target": "build", "projects": ["backoffice"] }],
+      "options": {
+        "command": "playwright test -c apps/backoffice-e2e/playwright.config.ts"
+      }
+    }
+  }
+}
