@@ -1,0 +1,41 @@
+{
+  "name": "backoffice-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/backoffice-ui/src",
+  "implicitDependencies": ["backoffice"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/dist/apps/backoffice-ui"
+      ],
+      "options": {
+        "cwd": "apps/backoffice-ui",
+        "command": "vite build"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "continuous": true,
+      "options": {
+        "cwd": "apps/backoffice-ui",
+        "command": "vite"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/backoffice-ui",
+        "command": "tsc --noEmit -p tsconfig.json"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/backoffice-ui",
+        "command": "vitest run"
+      }
+    }
+  }
+}
