@@ -68,7 +68,20 @@ export const rooms: FixtureRoom[] = [
     price: '72.50',
     description: 'City view twin by the sea wall',
   },
+  {
+    room_id: 'RM-204',
+    hotel_id: 'hotel-porto-07',
+    number_of_beds: 3,
+    available_from: '2026-10-12T14:00:00Z',
+    available_to: '2026-10-26T11:00:00Z',
+    city: 'Porto',
+    price: '184.25',
+    description: 'Triple room with a river view balcony over the Ribeira',
+  },
 ];
+
+/** The room story 1.3 (View Room Details) opens. */
+export const viewedRoom = rooms.find((room) => room.room_id === 'RM-204')!;
 
 /** Rooms whose description contains the phrase "sea view", in the API's room_id order. */
 export const seaViewRooms = rooms.filter((room) => /sea\s+view/i.test(room.description));

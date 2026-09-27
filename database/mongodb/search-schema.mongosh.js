@@ -5,6 +5,11 @@
 //
 // Usage: mongosh "mongodb://localhost:27017/testdb" database/mongodb/search-schema.mongosh.js
 //
+// Legacy rooms without a string `description` are backfilled with an empty string before the
+// validator is applied, so every stored room can be emitted as a Room (whose description is a
+// required string). An empty description marks a room with no catalog text yet; such rooms are
+// not text-searchable and are reported by audit-room-descriptions.js.
+//
 // Note: rooms.hotel_id is required and indexed, but MongoDB cannot enforce that the
 // referenced hotel exists. Referential existence is a write-path responsibility.
 
@@ -47,6 +52,7 @@ const collections = {
           "available_to",
           "city",
           "price",
+          "description",
           "created_at",
           "updated_at",
         ],
@@ -62,8 +68,7 @@ const collections = {
           price: { bsonType: "decimal" },
           description: {
             bsonType: "string",
-            minLength: 1,
-            description: "Owner-approved searchable text; rooms without it are not text-searchable",
+            description: "Room description shown to users and used for text search; empty when the catalog has none",
           },
           created_at: { bsonType: "date" },
           updated_at: { bsonType: "date" },
@@ -78,6 +83,14 @@ const collections = {
 };
 
 const existing = new Set(db.getCollectionNames());
+
+if (existing.has("rooms")) {
+  const backfill = db.rooms.updateMany(
+    { description: { $not: { $type: "string" } } },
+    [{ $set: { description: "", updated_at: "$$NOW" } }]
+  );
+  print(`Backfilled description on ${backfill.modifiedCount} legacy room(s)`);
+}
 
 for (const [name, spec] of Object.entries(collections)) {
   const options = {

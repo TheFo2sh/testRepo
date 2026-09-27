@@ -1,4 +1,5 @@
-// Read-only audit: reports rooms without an authoritative, non-empty `description`.
+// Read-only audit: reports rooms without an authoritative, non-empty `description`, including
+// legacy rooms that search-schema.mongosh.js backfilled with an empty string.
 // Such rooms cannot match text search; fix them at the source rather than inventing values.
 //
 // Usage: mongosh "mongodb://localhost:27017/testdb" database/mongodb/audit-room-descriptions.js
