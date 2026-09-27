@@ -19,5 +19,8 @@
         "command": "dotnet test apps/backoffice-tests/Backoffice.Tests.csproj"
       }
     }
-  }
+  },
+  "tags": [
+    "c4:container-98cb006fb2eeb921"
+  ]
 }

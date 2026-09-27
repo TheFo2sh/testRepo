@@ -3,7 +3,9 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/backoffice-ui/src",
-  "implicitDependencies": ["backoffice"],
+  "implicitDependencies": [
+    "backoffice"
+  ],
   "targets": {
     "build": {
       "executor": "nx:run-commands",
@@ -37,5 +39,8 @@
         "command": "vitest run"
       }
     }
-  }
+  },
+  "tags": [
+    "c4:container-be15b38b9ff1955e"
+  ]
 }

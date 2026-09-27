@@ -1,0 +1,167 @@
+{
+  "id": "cs-01a0e433-1c1d-7988-84f8-58a7226c7f9f",
+  "baseVersion": 6,
+  "createdAt": "2026-09-27T18:56:05.761Z",
+  "operations": [
+    {
+      "kind": "addContainer",
+      "id": "container-98cb006fb2eeb921",
+      "systemId": "330accdf-bf93-4a8c-9789-54ddd1c66b34",
+      "name": "Backoffice API",
+      "description": "C# Web API host for Backoffice management operations such as updating HotelInfo.",
+      "technology": "ASP.NET Core, FastEndpoints, MongoDB.Driver",
+      "paths": [
+        "apps/backoffice/**"
+      ],
+      "status": "confirmed",
+      "evidence": "Nx project backoffice added"
+    },
+    {
+      "kind": "addContainer",
+      "id": "container-be15b38b9ff1955e",
+      "systemId": "330accdf-bf93-4a8c-9789-54ddd1c66b34",
+      "name": "Backoffice UI",
+      "description": "Manager-facing web frontend of the Backoffice system.",
+      "technology": "React, Material UI, Zustand, Vite",
+      "paths": [
+        "apps/backoffice-ui/**"
+      ],
+      "status": "confirmed",
+      "evidence": "Nx project backoffice-ui added"
+    },
+    {
+      "kind": "addComponent",
+      "id": "component-ccd0a9d022fc345e",
+      "containerId": "container-98cb006fb2eeb921",
+      "name": "UpdateHotelInfo",
+      "description": "PUT /hotel-infos/{hotelId}: validates the city, updates hotel_infos.city, returns the HotelInfo with its room infos, rejects a blank city with 422, and logs 'HotelInfo Updated'.",
+      "technology": "FastEndpoints",
+      "paths": [
+        "apps/backoffice/Features/UpdateHotelInfo/**"
+      ],
+      "status": "confirmed",
+      "evidence": "4 file(s) changed under apps/backoffice/Features/UpdateHotelInfo/**"
+    },
+    {
+      "kind": "addComponent",
+      "id": "component-73eacdaae4af9cd6",
+      "containerId": "container-be15b38b9ff1955e",
+      "name": "Update HotelInfo Screen",
+      "description": "Manager form for changing a hotel's city, showing the updated HotelInfo or the rejection reason.",
+      "technology": "React, Material UI, Zustand",
+      "paths": [
+        "apps/backoffice-ui/src/ui/**",
+        "apps/backoffice-ui/src/state/**",
+        "apps/backoffice-ui/src/api/**"
+      ],
+      "status": "confirmed",
+      "evidence": "5 file(s) changed under apps/backoffice-ui/src/ui/**, apps/backoffice-ui/src/state/**, apps/backoffice-ui/src/api/**"
+    },
+    {
+      "kind": "addRelationship",
+      "sourceId": "284710cd-80ef-4d40-8565-a49a54a5fcd8",
+      "targetId": "container-be15b38b9ff1955e",
+      "label": "updates HotelInfo using",
+      "status": "unverifiable",
+      "evidence": "Reported by the assistant; the code can't show this kind of change"
+    },
+    {
+      "kind": "addRelationship",
+      "sourceId": "component-73eacdaae4af9cd6",
+      "targetId": "component-ccd0a9d022fc345e",
+      "label": "calls PUT /hotel-infos/{hotelId}",
+      "status": "unverifiable",
+      "evidence": "Reported by the assistant; the code can't show this kind of change"
+    },
+    {
+      "kind": "addRelationship",
+      "sourceId": "component-ccd0a9d022fc345e",
+      "targetId": "3be32d34-93ea-4d05-955e-47bfb8e9ed60",
+      "label": "updates hotel_infos and reads room_infos",
+      "status": "unverifiable",
+      "evidence": "Reported by the assistant; the code can't show this kind of change"
+    },
+    {
+      "kind": "addSourceCode",
+      "id": "source-b95f94dd3758d7e4",
+      "componentId": "component-ccd0a9d022fc345e",
+      "name": "UpdateHotelInfoEndpoint",
+      "description": "FastEndpoints PUT /hotel-infos/{hotelId} with its whitespace-aware city validator. It maps validation failures to the contract's 422 {hotelId, reason} body instead of the FastEndpoints default.",
+      "role": "endpoint",
+      "paths": [
+        "apps/backoffice/Features/UpdateHotelInfo/UpdateHotelInfoEndpoint.cs",
+        "apps/backoffice/Features/UpdateHotelInfo/UpdateHotelInfoValidator.cs"
+      ],
+      "status": "confirmed",
+      "evidence": "2 file(s) changed under apps/backoffice/Features/UpdateHotelInfo/UpdateHotelInfoEndpoint.cs, apps/backoffice/Features/UpdateHotelInfo/UpdateHotelInfoValidator.cs"
+    },
+    {
+      "kind": "addSourceCode",
+      "id": "source-b4e41f6314047d85",
+      "componentId": "component-ccd0a9d022fc345e",
+      "name": "UpdateHotelInfoUseCase",
+      "description": "Trims the city, updates it through the store, and records the structured 'HotelInfo Updated' log event. It also defines the request and response contract types.",
+      "role": "use case",
+      "paths": [
+        "apps/backoffice/Features/UpdateHotelInfo/UpdateHotelInfoUseCase.cs"
+      ],
+      "symbol": "UpdateHotelInfoUseCase",
+      "status": "confirmed",
+      "evidence": "1 file(s) changed under apps/backoffice/Features/UpdateHotelInfo/UpdateHotelInfoUseCase.cs"
+    },
+    {
+      "kind": "addSourceCode",
+      "id": "source-88ea7fe659e20f5b",
+      "componentId": "component-ccd0a9d022fc345e",
+      "name": "MongoHotelInfoStore",
+      "description": "MongoDB access to the hotels model: updates only the city (and updated_at) in hotel_infos, then loads the hotel's room_infos by hotel_id to build the complete HotelInfo.",
+      "role": "store",
+      "paths": [
+        "apps/backoffice/Features/UpdateHotelInfo/HotelInfoStore.cs"
+      ],
+      "symbol": "MongoHotelInfoStore",
+      "status": "confirmed",
+      "evidence": "1 file(s) changed under apps/backoffice/Features/UpdateHotelInfo/HotelInfoStore.cs"
+    },
+    {
+      "kind": "addSourceCode",
+      "id": "source-974b573d8159c555",
+      "componentId": "component-73eacdaae4af9cd6",
+      "name": "UpdateHotelInfoScreen",
+      "description": "MUI form with hotel ID and city inputs. It shows the updated HotelInfo and its rooms on success, or the 422 reason as the city field error.",
+      "role": "screen",
+      "paths": [
+        "apps/backoffice-ui/src/ui/UpdateHotelInfoScreen.tsx"
+      ],
+      "status": "confirmed",
+      "evidence": "1 file(s) changed under apps/backoffice-ui/src/ui/UpdateHotelInfoScreen.tsx"
+    },
+    {
+      "kind": "addSourceCode",
+      "id": "source-b60593ab22ab67af",
+      "componentId": "component-73eacdaae4af9cd6",
+      "name": "updateHotelInfoStore",
+      "description": "Zustand store for the entered values, submission status, result and error. It blocks duplicate submissions and keeps the inputs after a rejection.",
+      "role": "store",
+      "paths": [
+        "apps/backoffice-ui/src/state/updateHotelInfoStore.ts"
+      ],
+      "status": "confirmed",
+      "evidence": "1 file(s) changed under apps/backoffice-ui/src/state/updateHotelInfoStore.ts"
+    },
+    {
+      "kind": "addSourceCode",
+      "id": "source-08cdb76011733426",
+      "componentId": "component-73eacdaae4af9cd6",
+      "name": "UpdateHotelInfo API client",
+      "description": "Calls PUT /hotel-infos/{hotelId} (URL-encoded ID) against a configurable base URL that defaults to same-origin. Returns either the updated HotelInfo or the 422 rejection.",
+      "role": "api client",
+      "paths": [
+        "apps/backoffice-ui/src/api/backofficeClient.ts"
+      ],
+      "status": "confirmed",
+      "evidence": "1 file(s) changed under apps/backoffice-ui/src/api/backofficeClient.ts"
+    }
+  ],
+  "file": ".okeno/changesets/2026-09-27T18-56-05_01a0e433-1c1d-7988-84f8-58a7226c7f9f.json"
+}
