@@ -3,6 +3,7 @@ import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
@@ -16,6 +17,7 @@ import {
   useBrowseRoomsStore,
   type Room,
 } from '../state/browseRoomsStore';
+import { getViewRoomStore } from '../state/viewRoomStore';
 
 const priceFormat = new Intl.NumberFormat(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const dateTimeFormat = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' });
@@ -27,7 +29,10 @@ export function formatDateTime(value: string) {
   return Number.isNaN(date.getTime()) ? value : dateTimeFormat.format(date);
 }
 
-/** One room's contract fields; `description` is shown when the response supplies it (SearchRooms). */
+/**
+ * One room's contract fields; `description` is shown when the response supplies it (SearchRooms).
+ * "View details" opens the room in the ViewRoom state, which loads and shows its details.
+ */
 export function RoomCard({ room }: { room: Room & { description?: string } }) {
   const headingId = `room-${room.roomId}-heading`;
   return (
@@ -59,6 +64,15 @@ export function RoomCard({ room }: { room: Room & { description?: string } }) {
           )}
         </Box>
       </CardContent>
+      <CardActions>
+        <Button
+          size="small"
+          aria-label={`View details of room ${room.roomId}`}
+          onClick={() => void getViewRoomStore().getState().openRoom(room.roomId)}
+        >
+          View details
+        </Button>
+      </CardActions>
     </Card>
   );
 }
