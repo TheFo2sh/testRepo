@@ -1,12 +1,11 @@
 using System.Net;
 using System.Net.Http.Json;
 using Backoffice.Features.UpdateHotelInfo;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Backoffice.Tests;
 
-public class UpdateHotelInfoRoutingTests(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
+public class UpdateHotelInfoRoutingTests(BackofficeApiFactory factory) : IClassFixture<BackofficeApiFactory>
 {
     [Fact]
     public void Use_case_is_registered()
@@ -21,11 +20,11 @@ public class UpdateHotelInfoRoutingTests(WebApplicationFactory<Program> factory)
     {
         using var client = factory.CreateClient();
 
-        using var contractRoute = await client.PutAsJsonAsync("/hotel-infos/H-101", new { city = "Lisbon" });
+        using var contractRoute = await client.PutAsJsonAsync("/hotel-infos/H-101", new { city = "" });
         using var defaultRoute = await client.PutAsJsonAsync("/api/update-hotel-info", new { city = "Lisbon" });
 
-        Assert.NotEqual(HttpStatusCode.NotFound, contractRoute.StatusCode);
-        Assert.NotEqual(HttpStatusCode.MethodNotAllowed, contractRoute.StatusCode);
+        // A blank city is answered by the endpoint itself, so the route resolves without seeded data.
+        Assert.Equal(HttpStatusCode.UnprocessableEntity, contractRoute.StatusCode);
         Assert.Equal(HttpStatusCode.NotFound, defaultRoute.StatusCode);
     }
 }
