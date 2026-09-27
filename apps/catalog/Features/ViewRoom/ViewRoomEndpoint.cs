@@ -16,6 +16,12 @@ public sealed class ViewRoomEndpoint(ViewRoomUseCase useCase)
         CancellationToken cancellationToken)
     {
         var response = await useCase.ExecuteAsync(request, cancellationToken);
+        if (response is null)
+        {
+            await Send.NotFoundAsync(cancellationToken);
+            return;
+        }
+
         await Send.OkAsync(response, cancellationToken);
     }
 }

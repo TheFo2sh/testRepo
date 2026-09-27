@@ -12,6 +12,7 @@ builder.Services.AddScoped<IRoomsReadModel, MongoRoomsReadModel>();
 builder.Services.AddScoped<BrowseRoomsUseCase>();
 builder.Services.AddScoped<IRoomSearchReadModel, MongoRoomSearchReadModel>();
 builder.Services.AddScoped<SearchRoomsUseCase>();
+builder.Services.AddScoped<IRoomDetailReadModel, MongoRoomDetailReadModel>();
 builder.Services.AddScoped<ViewRoomUseCase>();
 
 var app = builder.Build();
